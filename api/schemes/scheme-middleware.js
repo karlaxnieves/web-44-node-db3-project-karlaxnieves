@@ -61,7 +61,20 @@ if (
   }
 */
 const validateStep = (req, res, next) => {
+  const {instructions, step_number} = req.body
+  const error = {status: 400}
 
+  if (instructions === undefined || 
+    typeof instructions !== 'string' ||
+    !instructions.trim() ||
+    typeof step_number !== "number" ||
+    step_number <1
+    ) {
+      error.message = { status: 400, message: 'invalid step'}
+      next(error)
+    } else {
+      next()
+    }
 }
 
 module.exports = {
